@@ -23,10 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME +
                 " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NUMBER INTEGER)");
-        db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, 0);
-        db.insert(TABLE_NAME,null ,contentValues);
+        insertData(0);
     }
 
     @Override
@@ -35,10 +32,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(int startDate, int endDate, double lat, double lon) {
+    public boolean insertData(int number) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, startDate);
+        contentValues.put(COL_2, number);
 
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
@@ -47,10 +44,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Cursor getAllData() {
+    public Integer getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
-        return res;
+        return Integer.parseInt(res.getString(1));
     }
 
     public boolean updateData(String id, int number) {
