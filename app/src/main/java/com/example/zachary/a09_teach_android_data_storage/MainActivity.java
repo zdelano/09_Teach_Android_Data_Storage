@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         // set text to 0 when app starts
         myView = (TextView) findViewById(R.id.textView);
         SharedPreferences prefs = getSharedPreferences("Team Activity", MODE_PRIVATE);
-//        number = prefs.getInt("num", 0);
-        number = myLilHelper.getAllData();
+        number = prefs.getInt("num", 0);
+//        number = myLilHelper.getAllData();
         myView.setText("" + number);
     }
 
